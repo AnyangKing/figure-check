@@ -1,0 +1,14 @@
+# 딥러닝 모델 파일 제외
+*.pt
+*.pth
+*.h5
+
+# 대용량 데이터 및 압축 파일 제외
+*.zip
+*.tar.gz
+*.csv
+*.npy
+
+# 파이썬 실행 시 생기는 임시 폴더 제외
+__pycache__/
+.ipynb_checkpoints/
