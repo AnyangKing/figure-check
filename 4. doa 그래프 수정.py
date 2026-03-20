@@ -189,26 +189,26 @@ if __name__ == '__main__':
     # 4. 터미널 결과 출력 (지적 사항 완벽 반영: TDOA MUSIC 포함 및 1us 간격)
     # ==============================================================================
     # (1) 거리별 요약
-    print(f"\n\n{'='*185}\n [ 종합 RMSE 비교 요약: 거리별 (m) ]\n{'='*185}")
+    print(f"\n\n{'='*175}\n [ 종합 RMSE 비교 요약: 거리별 (m) ]\n{'='*175}")
     print(f"{'Dist(m)':<10} | {'Prop':<16} | {'MUSIC':<16} | {'LSTM':<16} | {'MLP':<16} | {'KF':<16} | {'1D-CNN'}")
-    print(f"{'-'*185}")
+    print(f"{'-'*175}")
     for i in range(len(dist_steps)):
         val = int(round(dist_steps[i]/100.0))
         if val % 10 == 0:
             print(f"{val:>8} | {r_dist['Proposed'][i]:<16.4f} | {r_dist['MUSIC'][i]:<16.4f} | {r_dist['LSTM'][i]:<16.4f} | {r_dist['MLP'][i]:<16.4f} | {r_dist['KF'][i]:<16.4f} | {r_dist['CNN'][i]:.4f}")
 
     # (2) TDOA 바이어스 요약 (1us 간격 + MUSIC 포함)
-    print(f"\n\n{'='*185}\n [ 종합 RMSE 비교 요약: TDOA 평균 바이어스별 (us) ]\n{'='*185}")
+    print(f"\n\n{'='*175}\n [ 종합 RMSE 비교 요약: TDOA 평균 바이어스별 (us) ]\n{'='*175}")
     print(f"{'Bias(us)':<10} | {'Prop':<16} | {'MUSIC':<16} | {'LSTM':<16} | {'MLP':<16} | {'KF':<16} | {'1D-CNN'}")
-    print(f"{'-'*185}")
+    print(f"{'-'*175}")
     for i in range(len(tdoa_m_steps_cm)):
         s_str = f"{round(i*1.0):>8}" # 정확히 0, 1, 2... 100us 출력
         print(f"{s_str} | {r_tdoa['Proposed'][i]:<16.4f} | {r_tdoa['MUSIC'][i]:<16.4f} | {r_tdoa['LSTM'][i]:<16.4f} | {r_tdoa['MLP'][i]:<16.4f} | {r_tdoa['KF'][i]:<16.4f} | {r_tdoa['CNN'][i]:.4f}")
 
     # (3) DOA 요약 (MUSIC 제거)
-    print(f"\n\n{'='*185}\n [ 종합 RMSE 비교 요약: DOA 검증별 (deg) ]\n{'='*185}")
+    print(f"\n\n{'='*175}\n [ 종합 RMSE 비교 요약: DOA 검증별 (deg) ]\n{'='*175}")
     print(f"{'DOA(deg)':<10} | {'Prop':<16} | {'LSTM':<16} | {'MLP':<16} | {'KF':<16} | {'1D-CNN'}")
-    print(f"{'-'*185}")
+    print(f"{'-'*175}")
     for i in range(len(doa_steps)):
         s_str = f"{doa_steps[i]:>8.1f}"
         print(f"{s_str} | {r_doa['Proposed'][i]:<16.4f} | {r_doa['LSTM'][i]:<16.4f} | {r_doa['MLP'][i]:<16.4f} | {r_doa['KF'][i]:<16.4f} | {r_doa['CNN'][i]:.4f}")
