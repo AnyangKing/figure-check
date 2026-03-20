@@ -224,20 +224,20 @@ if __name__ == '__main__':
         music_m_list.append(localize_music(sensors_loc_cm, m_v, np.linalg.norm(gt_cm[t]-np.mean(sensors_loc_cm,0)), 7.5, 7.5)/100.0)
     p_all['MUSIC'], p_all['KF'] = np.array(music_m_list), np.array([kf_vis.predict_and_update(p_all['MLP'][t]*100.0)/100.0 for t in range(200)])
 
-    # Figure 1, 2, 3: 평면별 추기도
+    # Figure 1, 2, 3: Plane Estimation
     planes = [('X', 'Y', [0, 1], 1), ('X', 'Z', [0, 2], 2), ('Y', 'Z', [1, 2], 3)]
     for n1, n2, dims, fig_n in planes:
         plt.figure(fig_n, figsize=(9, 7)); plt.plot(gt_m[:, dims[0]], gt_m[:, dims[1]], 'k--', label='Ground Truth', lw=2)
         for k in ['Proposed', 'MUSIC', 'LSTM', 'MLP', 'KF', 'CNN']:
             plt.plot(p_all[k][:, dims[0]], p_all[k][:, dims[1]], label=k, color=model_styles[k]['color'], marker=model_styles[k]['marker'], ls=model_styles[k]['ls'], lw=1.5, markevery=15)
-        plt.title(f'{n1}-{n2} 평면 추기도 (m)'); plt.grid(True, ls=':', alpha=0.6); plt.legend(); plt.tight_layout()
+        plt.title(f'{n1}-{n2} Plane Estimation (m)'); plt.grid(True, ls=':', alpha=0.6); plt.legend(); plt.tight_layout()
 
     # Figure 4: 전체 거리 분석 (100m 단위 세로선)
     plt.figure(4, figsize=(10, 7)); plt.gca().set_xticks(np.arange(0, 601, 100))
     plt.gca().xaxis.grid(True, ls=':', alpha=0.5); plt.gca().yaxis.grid(True, which='both', ls=':', alpha=0.5)
     for k in model_styles.keys():
         plt.plot(dist_steps/100.0, r_dist[k], label=('1D-CNN' if k=='CNN' else k), color=model_styles[k]['color'], marker=model_styles[k]['marker'], ls=model_styles[k]['ls'], lw=1.5, markevery=10)
-    plt.yscale('log'); plt.ylim(0.1, 100); plt.gca().yaxis.set_major_formatter(ScalarFormatter()); plt.title("거리별 오차 분석"); plt.xlabel("Distance (m)"); plt.ylabel("RMSE (m)"); plt.legend(); plt.tight_layout()
+    plt.yscale('log'); plt.ylim(0.1, 100); plt.gca().yaxis.set_major_formatter(ScalarFormatter()); plt.title("Distance Error Analysis"); plt.xlabel("Distance (m)"); plt.ylabel("RMSE (m)"); plt.legend(); plt.tight_layout()
 
     # Figure 5: TDOA 바이어스 분석 (1us 정밀, 10us 마커)
     plt.figure(5, figsize=(10, 7)); td_us = (tdoa_m_steps_cm / SOUND_SPEED_CM_S) * 1000000
@@ -245,7 +245,7 @@ if __name__ == '__main__':
     plt.gca().xaxis.grid(True, ls=':', alpha=0.5); plt.gca().yaxis.grid(True, which='both', ls=':', alpha=0.5)
     for k in model_styles.keys():
         plt.plot(td_us, r_tdoa[k], label=('1D-CNN' if k=='CNN' else k), color=model_styles[k]['color'], marker=model_styles[k]['marker'], ls=model_styles[k]['ls'], lw=1.5, markevery=10)
-    plt.yscale('log'); plt.ylim(0.1, 100); plt.gca().yaxis.set_major_formatter(ScalarFormatter()); plt.title("TDOA 평균 바이어스 검증 (Std=50us 고정)"); plt.xlabel(r"TDOA Bias ($\mu s$)"); plt.ylabel("RMSE (m)"); plt.legend(); plt.tight_layout()
+    plt.yscale('log'); plt.ylim(0.1, 100); plt.gca().yaxis.set_major_formatter(ScalarFormatter()); plt.title("TDOA Synchronization Error Analysis"); plt.xlabel(r"TDOA Bias ($\mu s$)"); plt.ylabel("RMSE (m)"); plt.legend(); plt.tight_layout()
 
     # Figure 6: DOA Validation (MUSIC 제외)
     plt.figure(6, figsize=(10, 7)); plt.gca().set_xticks(doa_steps)
@@ -267,6 +267,6 @@ if __name__ == '__main__':
     plt.gca().set_xticks(np.arange(100, 301, 20)); plt.gca().xaxis.grid(True, ls=':', alpha=0.5); plt.gca().yaxis.grid(True, which='major', ls=':', alpha=0.5)
     for k in model_styles.keys():
         plt.plot(steps_sub, np.array(r_dist[k])[mask], label=('1D-CNN' if k=='CNN' else k), color=model_styles[k]['color'], marker=model_styles[k]['marker'], ls=model_styles[k]['ls'], lw=2.0, markevery=2)
-    plt.title("거리별 오차 분석 (100m ~ 300m 구간 상세)"); plt.xlabel("Distance (m)"); plt.ylabel("RMSE (m)"); plt.legend(); plt.tight_layout()
+    plt.title("Distance Error Analysis (100m ~ 300m Section)"); plt.xlabel("Distance (m)"); plt.ylabel("RMSE (m)"); plt.legend(); plt.tight_layout()
 
     plt.show()
