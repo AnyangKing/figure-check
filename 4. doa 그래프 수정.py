@@ -253,7 +253,7 @@ if __name__ == '__main__':
     for k in model_styles.keys():
         if k == 'MUSIC': continue
         plt.plot(doa_steps, r_doa[k], label=('1D-CNN' if k=='CNN' else k), color=model_styles[k]['color'], marker=model_styles[k]['marker'], ls=model_styles[k]['ls'], lw=1.5, markevery=1)
-    plt.yscale('log'); plt.ylim(0.1, 100); plt.gca().yaxis.set_major_formatter(ScalarFormatter()); plt.title("DOA Validation (환경 강인성 검증)"); plt.xlabel("DOA Deviation (deg)"); plt.ylabel("RMSE (m)"); plt.legend(); plt.tight_layout()
+    plt.yscale('log'); plt.ylim(0.1, 100); plt.gca().yaxis.set_major_formatter(ScalarFormatter()); plt.title("DOA Validation"); plt.xlabel("DOA Deviation (deg)"); plt.ylabel("RMSE (m)"); plt.legend(); plt.tight_layout()
 
     # Figure 7: 3D 궤적 추기도
     fig7 = plt.figure(7, figsize=(10, 8)); ax7 = fig7.add_subplot(111, projection='3d')
