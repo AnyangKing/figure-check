@@ -14,7 +14,7 @@ plt.rcParams['axes.unicode_minus'] = False
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 WINDOW_SIZE = 20
 SOUND_SPEED_CM_S = 150000.0
-ITER = 1000  # 사용자님 설정값: 10만 회
+ITER = 10000
 
 # ==============================================================================
 # 1. 모델 아키텍처 (추론을 위해 필요한 최소한의 정의)
